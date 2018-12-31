@@ -1,23 +1,59 @@
-const http = require("http");
+var express = require('express');
+var cors = require('cors');
+var bodyParser= require('body-parser');
 
-const hostname = "127.0.0.1";
+
+
+
+
+const app = express()
 const port = 3000;
 
 
-//server
-//
-const server = http.createServer((req, res) => {
-res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.end('Server de Rahma\n');
+
+var characters = [{
+	id:1,
+	name:"Skids OTools",
+	class:"Rogues",
+	subclass:"Guardian"
+}];
+
+
+
+//all routes and use
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false}));
+//parse JSON
+app.use(bodyParser.json());
 
 
 
 
+
+
+
+
+app.get('/api/perso',function (req, res)  {
+	return res.json(characters);
+	res.setHeader('content-type', 'application/json; charset=utf-8')
+
+		
+});
+
+app.post('/api/perso', function (req, res) {
+    var character = req.body.character;
+ characters.push(character);
+ res.setHeader('content-type', 'application/json; charset=utf-8')
+
+
+    return res.send('Character has been added successfully');
 });
 
 
-server.listen(port, hostname, () => {
-console.log(`server up ma gueule ! http://${hostname}:${port}/`);
 
+
+
+app.listen(port, function(){
+	console.log(`test cards reading on ${port}`)
 });
+

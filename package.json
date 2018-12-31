@@ -1,0 +1,28 @@
+{
+  "name": "myserver",
+  "version": "1.0.0",
+  "description": "My personnal tools and training for ServerSide backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4math2379/MyServer.git"
+  },
+  "keywords": [
+    "personnal",
+    "training"
+  ],
+  "author": "Rahma Sinien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4math2379/MyServer/issues"
+  },
+  "homepage": "https://github.com/4math2379/MyServer#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
+  }
+}
