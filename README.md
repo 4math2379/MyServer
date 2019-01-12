@@ -12,5 +12,6 @@ Cors         | yes|
 ## TODO
 1. More routing with *Express*
 2. Databse with *PostgreSql* , **Challenge**
-3. USE Babel for import method with nodeJs
+3. USE Babel for import method with nodeJs **DONE!**
 4. FIX all this issues about *export token issues*
+5. try *RXjs* .

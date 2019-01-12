@@ -1,120 +1,22 @@
-var express = require('express');
+
 var cors = require('cors');
 var bodyParser= require('body-parser');
 
-// thing
-var bresenham = require('bresenham');
-var glmatrix = require('gl-matrix');
-var mat4 = glmatrix.mat4;
-var vec3 = glmatrix.vec3;
-var Canvas = require('./browser.js').default.default;
-//var now = require('performance-now');
-//
 
 
+var Rx = require('rxjs/Rx')
+
+Rx.Observable.of(1,2,3);
 
 
+var observable = Rx.Observable.create( observer => {
 
-const app = express()
-const port = 3000;
+})
 
-
-//code to draw  in terminal
-
-var n = 20;
-var a = 40;
-var t = 2;
-var pi = Math.PI;
-var pi2 = pi/2;
-var sin = Math.sin;
-var cos = Math.cos;
-
-var c;
-var flush;
-
-var canvas = new Canvas();
-c = canvas.getContext('2d');
-
-if (typeof document !== 'undefined') {
-  document.body.appendChild(canvas);
-  flush = function() {};
-}
-else {
-  flush = function() {
-    console.log(c.toString());
-  };
-}
-
-var sunX = canvas.width - 20;
-c.font = '17px sans-serif';
-c.fillText('☼', sunX, 20, 20);
-var sunData = c.getImageData(sunX, 1, 15, 20);
-
-// Test image data
-// c.fillRect(0,0,400,400);
-// var data = c.getImageData(10, 10, 20, 20);
-// canvas.clearRect(0,0,canvas.width,canvas.height);
-// canvas.putImageData(data, 0, 10);
-// console.log(canvas.toString());
-
-function draw() {
-  var w = canvas.width / 2;
-  var start = now();
-
-  // Test performance
-  // c.fillRect(-100, -100, 5000, 5000);
-  // var end = now();
-  // console.log(end - start);
-
-  c.clearRect(0, 0, canvas.width, canvas.height);
-  c.save();
-  c.translate(w, w);
-  for(var i = 1; i < n; i++) {
-    var r = i*(w/n);
-    c.beginPath();
-    c.moveTo(-r, 0);
-    var tt = start*pi/1000/t;
-    var p = (sin(tt-pi*(cos(pi*i/n)+1)/2)+1)*pi2;
-    for(var j = 0; j < a; j++) {
-      var ca = pi*j/(a-i);
-      if(p > ca) {
-        c.lineTo(-cos(ca)*r, -sin(ca)*r);
-      } else {
-        c.lineTo(-cos(p)*r, -sin(p)*r);
-      }
-    }
-    c.stroke();
-  }
-  c.restore();
-
-  c.strokeRect(0,0, canvas.width, canvas.height);
-
-  //shift sun
-  sunX = (sunX+1) % canvas.width;
-  c.putImageData(sunData, sunX, 1);
-
-  flush();
-}
-
-setInterval(draw, 1000/30);
-  //
+//clustering to create a small network
 
 
-
-var characters = [{
-	id:1,
-	name:"Skids OTools",
-	class:"Rogues",
-	subclass:"Guardian"
-}];
-
-
-
-//all routes and use
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false}));
-//parse JSON
-app.use(bodyParser.json());
+//var cluster = require('cluster');
 
 
 
@@ -123,27 +25,91 @@ app.use(bodyParser.json());
 
 
 
-app.get('/api/perso',function (req, res)  {
-	return res.json(characters);
-	res.setHeader('content-type', 'application/json; charset=utf-8')
-
-		
-});
-
-app.post('/api/perso', function (req, res) {
-    var character = req.body.character;
- characters.push(character);
- res.setHeader('content-type', 'application/json; charset=utf-8')
-
-
-    return res.send('Character has been added successfully');
-});
 
 
 
 
 
-app.listen(port, function(){
-	console.log(`test cards reading on ${port}`)
-});
+
+
+
+//if (cluster.isMaster)  {
+//machine cpu
+//var cpuCount = require('os').cpus().length;
+
+//worker 
+
+// for (var i = 0; i <  cpuCount; i +=1) {
+// 	cluster.fork();
+// }
+
+
+
+// } else {
+
+	var express = require('express');
+
+	var app = express()
+	//var port = 3000;
+
+
+
+	var characters = [{
+		id:1,
+		name:"Skids OTools",
+		class:"Rogues",
+		subclass:"Guardian"
+	}];
+	
+	
+	
+	//all routes and use
+	app.use(cors());
+	app.use(bodyParser.urlencoded({ extended: false}));
+	//parse JSON
+	app.use(bodyParser.json());
+	
+	
+	
+	
+	
+	
+	
+	
+	app.get('/api/perso',function (req, res)  {
+		return res.json(characters);
+		res.setHeader('content-type', 'application/json; charset=utf-8')
+	
+			
+	});
+	
+	app.post('/api/perso', function (req, res) {
+		var character = req.body.character;
+	 characters.push(character);
+	
+	//characters.push(character.id, character.name, character.class,character.subclass);
+	 res.setHeader('content-type', 'application/json; charset=utf-8')
+	
+	
+		return res.send('Character has been added successfully');
+	});
+
+
+app.listen(3000);
+console.log(" server running ")//, cluster.worker.id);
+
+
+//}
+
+
+
+
+
+
+
+
+
+
+
+
 
